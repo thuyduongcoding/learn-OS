@@ -45,38 +45,33 @@ void printMatrix(int** matrix, int n) {
 
 int main() {
     int n = 3;
-    int** matA = (int**)malloc(n*sizeof(int*));
-    int** matB = (int**)malloc(n*sizeof(int*));
+    // Allocate memory for matA, matB and matC
+    int** matA = (int**)malloc(n * sizeof(int*));
+    int** matB = (int**)malloc(n * sizeof(int*));
+    int** matC = (int**)malloc(n * sizeof(int*));
     
-    // Initialize A
-    for(int i = 0; i < n; i++) {
-        matA[i] = (int*)malloc(n*sizeof(int));
+    // Initialize matrices
+    for (int i = 0; i < n; i++) {
+        matA[i] = (int*)malloc(n * sizeof(int));
+        matB[i] = (int*)malloc(n * sizeof(int));
+        matC[i] = (int*)calloc(n, sizeof(int)); //Initialize all matC elements to be 0
+        
+        // Fill with example values
         for (int j = 0; j < n; j++) {
-            matA[i][j] = rand();
+            matA[i][j] = rand() % 10; // Random values for matA
+            matB[i][j] = rand() % 10; // Random values for matB
         }
     }
 
+    // Print the resulting matrix
     printf("Matrix A\n");
     printMatrix(matA, n);
-
-
-    // Initialize B
-    for(int i = 0; i < n; i++) {
-        matB[i] = (int*)malloc(n*sizeof(int));
-        for (int j = 0; j < n; j++) {
-            matB[i][j] = rand();
-        }
-    }
-
 
     // Print the resulting matrix
     printf("Matrix B\n");
     printMatrix(matB, n);
 
-
-    // Initialize C
-    int** matC = multiply(matA, matB, n);
-    
+    matC = multiply(matA, matB, n);
     // Print the resulting matrix
     printf("Matrix C\n");
     printMatrix(matC, n);
