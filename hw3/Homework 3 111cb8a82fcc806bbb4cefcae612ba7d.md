@@ -60,15 +60,15 @@ int pthread_join(pthread_t th,
 
 - First run:
     
-    ![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image.png)
+    ![image.png](image.png)
     
 - Second run:
     
-    ![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%201.png)
+    ![image.png](image%201.png)
     
 - Third run:
     
-    ![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%202.png)
+    ![image.png](image%202.png)
     
 
 **Answer:** Cannot get the same result because threads run concurrently so the order in which they execute is non-deterministic.
@@ -77,15 +77,15 @@ int pthread_join(pthread_t th,
 
 **Answer:** exit() function terminal the calling process immediately, not just the thread calling it. Thus, if one of the threads reach the exit() function, the whole program would be terminated while some threads have not finished their jobs. Thus, most of the results do not show all of 10 “He he” lines.
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%203.png)
+![image.png](image%203.png)
 
 ### c) Uncomment line 18 (while keeping line 6 commented), then run the code multiple times again. How does the result compare to part (a)? Why?
 
 **Answer:** In part (a), all 10 print statements are displayed. However, in part (c), some print statements might be missing (only 7 and 8 as shown in the figures below). This is because the exit(NULL) at line 18 would terminate the whole program when the main code reaches that line. Thus, in some cases when the threads have not finished it jobs but the main program has reached the line 18, all the threads would be terminated. The `pthread_join` function will not be executed. Meanwhile, the print statements shown on the terminal are the threads have finish their jobs before the program reaches line 18.
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%204.png)
+![image.png](image%204.png)
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%205.png)
+![image.png](image%205.png)
 
 ## Q2:
 
@@ -187,9 +187,13 @@ int main(int argc, char* args[]) {
 
 ### (b) Compile and run the code with different values of n (e.g., 10, 20, 50, 100) to verify if the code works as expected.
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%206.png)
+![image.png](image%206.png)
 
-The code works as expected.
+~~The code works as expected.~~
+
+- Running with large number might result in order error
+- Those threads sharing the memory so the length of the array might be different → overlapping error
+- **→ SYNCHRONIZATION**
 
 ### (c) Explain the results you observe
 
@@ -284,22 +288,22 @@ void multi_threaded_mult(int** A, int** B, int** C, int k) {
 
 - k = 2
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%207.png)
+![image.png](image%207.png)
 
 - k = 4
 
-![image.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/image%208.png)
+![image.png](image%208.png)
 
 - k = 8:
 
-![Screenshot from 2024-10-01 22-24-16.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/Screenshot_from_2024-10-01_22-24-16.png)
+![Screenshot from 2024-10-01 22-24-16.png](Screenshot_from_2024-10-01_22-24-16.png)
 
 - k = 16:
 
-![Screenshot from 2024-10-01 22-25-10.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/Screenshot_from_2024-10-01_22-25-10.png)
+![Screenshot from 2024-10-01 22-25-10.png](Screenshot_from_2024-10-01_22-25-10.png)
 
 - k = 20:
 
-![Screenshot from 2024-10-01 22-25-33.png](Homework%203%20111cb8a82fcc806bbb4cefcae612ba7d/Screenshot_from_2024-10-01_22-25-33.png)
+![Screenshot from 2024-10-01 22-25-33.png](Screenshot_from_2024-10-01_22-25-33.png)
 
 The more threads used, it seems the faster the calculation. However, the differences are not very significant.
